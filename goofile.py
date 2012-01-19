@@ -32,7 +32,7 @@ def usage():
  print "example:./goofile.py -d test.com -f txt\n" 
  sys.exit()
 
-def run(w,file,i):
+def run(w,file):
 	
 	h = httplib.HTTP('www.google.com')
 	h.putrequest('GET',"/search?q=site:"+w+"+filetype:"+file)
@@ -73,14 +73,12 @@ def search(argv):
 
 
 	cant = 0
-	
-	
 
 	while cant < limit:
-		res = run(word,file,cant)
+		res = run(word,file)
 		for x in res:
-	                if result.count(x) == 0:
-               		        result.append(x)
+			if result.count(x) == 0:
+        			result.append(x)
 		cant+=100
 			
 
