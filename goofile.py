@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+# Goofile v1.5
+# My Website: http://www.g13net.com
+# Project Page: http://code.google.com/p/goofile
+#
 # TheHarvester used for inspiration
 # A many thanks to the Edge-Security team!           
 # 
@@ -9,33 +13,28 @@ import sys
 import re
 import getopt
 
-
-
-
 print "\n-------------------------------------"
-print "|Goofile V1.0	                    |"
+print "|Goofile v1.5	                    |"
 print "|Coded by Thomas (G13) Richards     |"
 print "|www.g13net.com                     |"
 print "|code.google.com/p/goofile          |"
 print "-------------------------------------\n\n"
 
-global word
-global w
 global result
 result =[]
 
 def usage():
- print "Goofile 1.0\n"
+ print "Goofile 1.5\n"
  print "usage: goofile options \n"
  print "       -d: domain to search\n"
  print "       -f: filetype (ex. pdf)\n"
  print "example:./goofile.py -d test.com -f txt\n" 
  sys.exit()
 
-def run(w,file):
-	
+def run(dmn,file):
+
 	h = httplib.HTTP('www.google.com')
-	h.putrequest('GET',"/search?q=site:"+w+"+filetype:"+file)
+	h.putrequest('GET',"/search?num=500&q=site:"+dmn+"+filetype:"+file)
 	h.putheader('Host', 'www.google.com')
 	h.putheader('User-agent', 'Internet Explorer 6.0 ')
 	h.putheader('Referrer', 'www.g13net.com')
@@ -56,26 +55,26 @@ def search(argv):
 	if len(sys.argv) < 2: 
 		usage() 
 	try :
-	       opts, args = getopt.getopt(argv,"d:f:")
+	      opts, args = getopt.getopt(argv,"d:f:")
  
 	except getopt.GetoptError:
   	     	usage()
 		sys.exit()
 	
 	for opt,arg in opts :
-    	   	if opt == '-d' :
-			word=arg
-		elif opt == '-f':
+    	   	if opt == '-f' :
 			file=arg
+		elif opt == '-d':
+			dmn=arg
 	
-	print "Searching in "+word+" for "+ file
+	print "Searching in "+dmn+" for "+ file
 	print "========================================"
 
 
 	cant = 0
 
 	while cant < limit:
-		res = run(word,file)
+		res = run(dmn,file)
 		for x in res:
 			if result.count(x) == 0:
         			result.append(x)
